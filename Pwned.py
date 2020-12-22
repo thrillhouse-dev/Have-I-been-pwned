@@ -6,8 +6,6 @@ import PySimpleGUI as sg
 def getandencrypt(passw):
     """" get Password to test from user input and encrypt with sha1-Hash-Algorythm. Then split and
     return the first 5 chars from hash for use in Pwned-API. The rest is globally stored in tail """
-    #global passw
-    #passw = input("please input your desired password:  ")
     encrypted = hashlib.sha1(passw.encode('utf-8')).hexdigest()
     global tail
     first5_char, tail = encrypted[0:5].upper(), encrypted[5:].upper()
@@ -29,22 +27,22 @@ def main(passw):
     count = pwned_api_check(passw)
     if count:
         count = int(count[0])
-        sg. Popup(f'Oh No! The Pass "{passw}" has been pwned {count} times!')
+        sg.popup_ok(f'The entered Password has been pwned {count} times! Please change it right now!', font= ('Fixedsys', 10), text_color='red')
     else:
-       sg. Popup(f'"{passw}" was NOT found in Database.So you are good to go!')
+       sg.popup_ok(f'The entered Password was NOT found any Database!', font= ('Fixedsys', 10), text_color='green')
     return 'done!'
 
 
 sg.change_look_and_feel('DarkBrown4')
 # STEP 1 define the layout
 layout = [
-            [sg.Text('API-Password-Checker', size=(40, 2), font= ('Helvetica', 20))],
-            [sg.Text('Just enter your Password below and click the Check-Button:', font= ('Helvetica', 16))],
-            [sg.Input()],
-            [sg.Button('Check'), sg.Button('Exit'), sg.Checkbox(' check to hide your Pass')]
+            [sg.Text('API-Password-Checker', size=(40, 2), justification='center', font= ('Fixedsys', 20), relief=sg.RELIEF_RIDGE)],
+            [sg.Text('Just enter your Password below and click the Check-Button:', font= ('Fixedsys', 16))],
+            [sg.Input('', password_char='*')],
+            [sg.Button('Check'), sg.Button('Exit')]
          ]
 # STEP 2 - create the window
-window = sg.Window(';--)  Have I been Pwned?', layout, alpha_channel=.8,  grab_anywhere=True, font=("Helvetica", 12))
+window = sg.Window(';--)  Have I been Pwned?', layout, alpha_channel=.8, font=("Fixedsys", 12))
 
 # STEP 3 - the event loop
 while True:
