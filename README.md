@@ -6,4 +6,6 @@ Dependencies: hashlib, requests, PySimpleGUI
 <img src="image/pwned_interface.png">
 
 
-Just clone, install deps with "pip install" and run with "python Pwned.py"
+Ready to use executables for Linux and Windows in the release section.
+
+Or just clone, install deps with "pip install" and run with "python Pwned.py"
